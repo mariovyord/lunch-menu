@@ -1,7 +1,9 @@
+import Navigation from "./features/Navigation";
+
 function App() {
 	return (
 		<div className="App">
-			<p>Hello World</p>
+			<Navigation />
 		</div>
 	);
 }
