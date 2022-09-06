@@ -9,7 +9,7 @@ const Footer = () => {
 				</div>
 			</div>
 			<div className='w-full text-center text-sm'>
-				<p>Copyright © 2022 - John Johnson</p>
+				<p>Copyright © 2022 - Mario Yordanov</p>
 			</div>
 		</footer>
 	)
