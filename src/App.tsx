@@ -8,7 +8,7 @@ function App() {
 	return (
 		<div className="min-h-screen flex flex-col">
 			<NavigationBar />
-			<main className="max-w-5xl mx-auto px-3">
+			<main className="max-w-7xl mx-auto px-3 grow w-full">
 				<Routes>
 					<Route path='/' element={<HomePage />} />
 					<Route path='/contacts' element={<ContactsPage />} />

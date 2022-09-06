@@ -31,7 +31,7 @@ const NavigationBar = () => {
 
 	return (
 		<header className='h-14 bg-lime-700 shadow'>
-			<div className='max-w-5xl m-auto h-full'>
+			<div className='max-w-7xl m-auto h-full'>
 				<div className='flex justify-between min-w-full h-full px-3'>
 					<div className='text-white font-bold text-3xl h-full'>
 						<NavLink to='/' className='h-full flex items-center'>TASTY</NavLink>
