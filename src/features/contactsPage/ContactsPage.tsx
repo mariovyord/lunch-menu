@@ -1,11 +1,15 @@
 import Contacts from "./contacts/Contacts";
 import ContactsForm from "./contactsForm/ContactsForm";
+import restaurantImage from '../../assets/images/restaurant-ga3a8edcf9_640.jpg';
 
 const ContactsPage = () => {
 	return (
-		<div className="grid sm:grid-cols-2 text-lg leading-7 py-6 gap-2">
-			<div>
+		<div className="grid sm:grid-cols-2 text-lg leading-7 py-6 gap-4 bg-white px-3">
+			<div className="grid sm:grid-cols-2 gap-4">
 				<Contacts />
+				<div className="w-full sm:max-h-[367px] overflow-hidden rounded-lg shadow mt-3">
+					<img src={restaurantImage} alt="restourant" />
+				</div>
 			</div>
 			<div>
 				<div className='shadow rounded-lg py-3 px-1 mt-3 bg-primary text-primary-content'>
