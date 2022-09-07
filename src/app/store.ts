@@ -1,8 +1,9 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import dayReducer from './slices/daySlice';
 
 export const store = configureStore({
 	reducer: {
-		test: () => null,
+		day: dayReducer,
 	},
 });
 
