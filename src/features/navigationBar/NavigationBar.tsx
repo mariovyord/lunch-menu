@@ -30,7 +30,7 @@ const NavigationBar = () => {
 	]
 
 	return (
-		<header className='h-14 bg-lime-700 shadow'>
+		<header className='h-16 bg-lime-700 shadow'>
 			<div className='max-w-7xl m-auto h-full'>
 				<div className='flex justify-between min-w-full h-full px-3'>
 					<div className='text-white font-bold text-3xl h-full'>
@@ -52,7 +52,7 @@ const NavigationBar = () => {
 									<div className={`${state.toggle && '-rotate-45 absolute right-3'} w-8 h-1 bg-white transition-all `}></div>
 								</div>
 							</div>
-							{state.toggle && <ul className={`absolute w-screen p-5 bg-lime-700 text-white text-2xl text-center  top-14 left-0`}>
+							{state.toggle && <ul className={`absolute w-screen p-5 bg-lime-700 text-white text-2xl text-center  top-14 left-0 z-50`}>
 								{list.map((item) => {
 									return <li key={item.url} className='p-4'><NavLink to={item.url} onClick={() => toggleHamburger()}>{item.name}</NavLink></li>
 								})}
