@@ -73,8 +73,8 @@
 			"price": 4.50
 		},
 		{
-			"title": "Risotto with mussels and lobster cream, cherry tomatoes",
-			"description": "Mascarpone and fennel - 490 g",
+			"title": "Risotto",
+			"description": "With mussels and lobster cream, cherry tomatoes - 490 g",
 			"price": 4.50
 		},
 		{
@@ -103,5 +103,160 @@
 			"price": 6.50
 		}
 	],
-	[]
+	[
+		{
+			"title": "Tarator",
+			"description": "Salted yogurt mixed with cucumbers, garlic, olive oil - 300 g",
+			"price": 2.30
+		},
+		{
+			"title": "Potato Soup",
+			"description": "Diced potatoes, carrots, celery and onions with chicken broth - 350 g",
+			"price": 3.50
+		},
+		{
+			"title": "Bean Stew",
+			"description": "Beans, onion, tomato paste, olive oil - 350 g",
+			"price": 3.50
+		},
+		{
+			"title": "Cabbage Rice",
+			"description": "Cabbage, rice, eggs, olive oil, spices - 400 g",
+			"price": 4.50
+		},
+		{
+			"title": "Risotto",
+			"description": "With mussels and lobster cream, cherry tomatoes - 490 g",
+			"price": 4.50
+		},
+		{
+			"title": "Fried Meatball",
+			"description": "Minced pork - 100 g",
+			"price": 1.70
+		},
+		{
+			"title": "Chicken Nuggets",
+			"description": "Chicken, cornflakes, garlic sauce, vegetables - 400 g",
+			"price": 6.50
+		},
+		{
+			"title": "Shopska Salad",
+			"description": "Tomatoes, cucumber, cheese, onion, olive oil - 350 g",
+			"price": 4.00
+		},
+		{
+			"title": "Caprese Salad",
+			"description": "Tomatoes, mozzarella, basil, olive oil - 350 g",
+			"price": 4.00
+		},
+		{
+			"title": "Chocolate Mousse",
+			"description": "Chocolate, milk, eggs - 400 g",
+			"price": 6.50
+		}
+	],
+	[
+		{
+			"title": "Tarator",
+			"description": "Salted yogurt mixed with cucumbers, garlic, olive oil - 300 g",
+			"price": 2.30
+		},
+		{
+			"title": "Potato Soup",
+			"description": "Diced potatoes, carrots, celery and onions with chicken broth - 350 g",
+			"price": 3.50
+		},
+		{
+			"title": "Bean Stew",
+			"description": "Beans, onion, tomato paste, olive oil - 350 g",
+			"price": 3.50
+		},
+		{
+			"title": "Cabbage Rice",
+			"description": "Cabbage, rice, eggs, olive oil, spices - 400 g",
+			"price": 4.50
+		},
+		{
+			"title": "Risotto",
+			"description": "With mussels and lobster cream, cherry tomatoes - 490 g",
+			"price": 4.50
+		},
+		{
+			"title": "Fried Meatball",
+			"description": "Minced pork - 100 g",
+			"price": 1.70
+		},
+		{
+			"title": "Chicken Nuggets",
+			"description": "Chicken, cornflakes, garlic sauce, vegetables - 400 g",
+			"price": 6.50
+		},
+		{
+			"title": "Shopska Salad",
+			"description": "Tomatoes, cucumber, cheese, onion, olive oil - 350 g",
+			"price": 4.00
+		},
+		{
+			"title": "Caprese Salad",
+			"description": "Tomatoes, mozzarella, basil, olive oil - 350 g",
+			"price": 4.00
+		},
+		{
+			"title": "Chocolate Mousse",
+			"description": "Chocolate, milk, eggs - 400 g",
+			"price": 6.50
+		}
+	],
+	[
+		{
+			"title": "Tarator",
+			"description": "Salted yogurt mixed with cucumbers, garlic, olive oil - 300 g",
+			"price": 2.30
+		},
+		{
+			"title": "Potato Soup",
+			"description": "Diced potatoes, carrots, celery and onions with chicken broth - 350 g",
+			"price": 3.50
+		},
+		{
+			"title": "Bean Stew",
+			"description": "Beans, onion, tomato paste, olive oil - 350 g",
+			"price": 3.50
+		},
+		{
+			"title": "Cabbage Rice",
+			"description": "Cabbage, rice, eggs, olive oil, spices - 400 g",
+			"price": 4.50
+		},
+		{
+			"title": "Risotto",
+			"description": "With mussels and lobster cream, cherry tomatoes - 490 g",
+			"price": 4.50
+		},
+		{
+			"title": "Fried Meatball",
+			"description": "Minced pork - 100 g",
+			"price": 1.70
+		},
+		{
+			"title": "Chicken Nuggets",
+			"description": "Chicken, cornflakes, garlic sauce, vegetables - 400 g",
+			"price": 6.50
+		},
+		{
+			"title": "Shopska Salad",
+			"description": "Tomatoes, cucumber, cheese, onion, olive oil - 350 g",
+			"price": 4.00
+		},
+		{
+			"title": "Caprese Salad",
+			"description": "Tomatoes, mozzarella, basil, olive oil - 350 g",
+			"price": 4.00
+		},
+		{
+			"title": "Chocolate Mousse",
+			"description": "Chocolate, milk, eggs - 400 g",
+			"price": 6.50
+		}
+	]
 ]
