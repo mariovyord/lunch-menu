@@ -1,4 +1,5 @@
 import React from 'react'
+import { formatDollars } from '../../../utils/formatDollars'
 
 type TProps = {
 	product: {
@@ -14,7 +15,7 @@ const ProductCard: React.FC<TProps> = ({ product }) => {
 			<div className='w-full'>
 				<div className='flex justify-between'>
 					<h3 className='font-bold text-lg'>{product.title}</h3>
-					<p className='font-semibold text-lg'>${product.price}</p>
+					<p className='font-semibold text-lg'>{formatDollars(product.price)}</p>
 				</div>
 				<p>{product.description}</p>
 			</div>
