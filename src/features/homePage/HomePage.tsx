@@ -12,11 +12,11 @@ const HomePage = () => {
 				<ScrollSpy
 					useBoxMethod={false}
 				>
-					<DayMenuCard menuCode={0} day="Monday" />
-					<DayMenuCard menuCode={1} day="Tuesday" />
-					<DayMenuCard menuCode={2} day="Wednesday" />
-					<DayMenuCard menuCode={3} day="Thursday" />
-					<DayMenuCard menuCode={4} day="Friday" />
+					<DayMenuCard dayCode={0} />
+					<DayMenuCard dayCode={1} />
+					<DayMenuCard dayCode={2} />
+					<DayMenuCard dayCode={3} />
+					<DayMenuCard dayCode={4} />
 
 					<div className='pt-20 sm:pt-10' id="saturday">
 						<h2 className='font-bold text-3xl text-primary border-b-2 pb-2' ><a href="#saturday">Saturday</a></h2>

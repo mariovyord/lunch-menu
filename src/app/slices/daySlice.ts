@@ -5,7 +5,7 @@ import { RootState } from '../store';
 
 const getInitialState = () => {
 	const date = new Date();
-	const day = date.getDate();
+	const day = date.getDay();
 
 	return {
 		code: day,
@@ -27,6 +27,6 @@ export const daySlice = createSlice({
 })
 
 export const dayActions = daySlice.actions;
-export const selectDay = (state: RootState) => state;
+export const selectDay = (state: RootState) => state.day;
 
 export default daySlice.reducer;

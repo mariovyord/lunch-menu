@@ -6,10 +6,11 @@ type TProps = {
 		title: string,
 		description: string,
 		price: number,
-	}
+	},
+	active: boolean,
 }
 
-const ProductCard: React.FC<TProps> = ({ product }) => {
+const ProductCard: React.FC<TProps> = ({ product, active }) => {
 	return (
 		<div className='border-2 rounded-lg p-3 flex justify-between gap-6'>
 			<div className='w-full'>
@@ -20,7 +21,7 @@ const ProductCard: React.FC<TProps> = ({ product }) => {
 				<p>{product.description}</p>
 			</div>
 			<div>
-				<button type='button' className='hover:bg-lime-800 hover:shadow active:scale-95 flex h-12 w-12 justify-center rounded-full bg-lime-700 text-4xl text-white shadow'>+</button>
+				<button disabled={!active} type='button' className='disabled:bg-slate-600 hover:bg-lime-800 hover:shadow active:scale-95 flex h-12 w-12 justify-center rounded-full bg-lime-700 text-4xl text-white shadow'>+</button>
 			</div>
 		</div>
 	)
