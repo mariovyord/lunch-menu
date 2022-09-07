@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.active-scroll-spy {
+	@apply bg-white font-semibold text-slate-800
+  }
