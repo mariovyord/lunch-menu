@@ -38,7 +38,8 @@ const NavigationBar = () => {
 	return (
 		<header className='sticky top-0 h-16 bg-lime-700 shadow z-50'>
 			<div className='max-w-7xl m-auto h-full'>
-				<div className='flex justify-between min-w-full h-full px-3'>
+				<div onClick={() => (cart.toggle === true) && dispatch(cartActions.toggle())}
+					className='flex justify-between min-w-full h-full px-3'>
 					<div className='text-white font-bold text-3xl h-full'>
 						<NavLink to='/' className='h-full flex items-center'>TASTY</NavLink>
 					</div>
@@ -80,7 +81,7 @@ const NavigationBar = () => {
 					</div>
 				</div>
 				{cart.toggle && <Cart />}
-				{cart.toggle && <div className='absolute bg-slate-600 opacity-50 h-screen w-full top-16 left-0 -z-50'></div>}
+				{cart.toggle && <div onClick={() => dispatch(cartActions.toggle())} className='absolute bg-slate-600 opacity-50 h-[calc(100vh_-_64px)] w-full top-16 left-0 -z-50'></div>}
 			</div>
 		</header >
 	)
