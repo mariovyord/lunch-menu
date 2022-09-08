@@ -40,7 +40,14 @@ const NavigationBar = () => {
 			<div className='max-w-7xl m-auto h-full'>
 				<div className='flex justify-between min-w-full h-full px-3'>
 					<div className='text-white font-bold text-3xl h-full'>
-						<NavLink onClick={() => (cart.toggle === true) && dispatch(cartActions.toggle())} to='/' className='h-full flex items-center'>TASTY</NavLink>
+						<NavLink onClick={() => {
+							window.scrollTo(0, 0)
+
+							if (cart.toggle === true) {
+								dispatch(cartActions.toggle())
+							}
+						}
+						} to='/' className='h-full flex items-center'>TASTY</NavLink>
 					</div>
 					<div className='flex'>
 						<nav className='flex'>

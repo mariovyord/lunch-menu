@@ -1,8 +1,13 @@
 import Contacts from "./contacts/Contacts";
 import ContactsForm from "./contactsForm/ContactsForm";
 import restaurantImage from '../../assets/images/restaurant-ga3a8edcf9_640.jpg';
+import { useEffect } from "react";
 
 const ContactsPage = () => {
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [])
+
 	return (
 		<div className="grid sm:grid-cols-2 text-lg leading-7 py-6 gap-4 bg-white px-3">
 			<div className="grid sm:grid-cols-2 gap-4">
