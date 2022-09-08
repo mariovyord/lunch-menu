@@ -30,9 +30,6 @@ export const cartSlice = createSlice({
 				state.items.push(newItem);
 			}
 		},
-		removeItem: (state, action: PayloadAction<any>) => {
-
-		},
 		changeQty: (state, action: PayloadAction<TCartProduct>) => {
 			const existing = state.items.find(x => x.title === action.payload.title);
 			if (existing) {
