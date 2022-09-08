@@ -1,6 +1,6 @@
 # Lunch Menu | Restaurant Website
 
-Template for a small lunch restaurant.
+Template for a small lunch restaurant website.
 
 Training project.
 
