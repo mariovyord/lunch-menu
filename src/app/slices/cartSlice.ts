@@ -5,11 +5,13 @@ import { RootState } from '../store';
 type TCartState = {
 	items: TCartProduct[],
 	toggle: boolean,
+	animate: boolean,
 }
 
 const getInitialState: TCartState = {
 	items: [],
 	toggle: false,
+	animate: false,
 }
 
 export const cartSlice = createSlice({
@@ -29,9 +31,14 @@ export const cartSlice = createSlice({
 			} else {
 				state.items.push(newItem);
 			}
+
+			state.animate = true;
 		},
 		changeQty: (state, action: PayloadAction<TCartProduct>) => {
 			const existing = state.items.find(x => x.title === action.payload.title);
+
+			state.animate = true;
+
 			if (existing) {
 				if (action.payload.qty <= 0) {
 					const index = state.items.indexOf(existing);
@@ -48,6 +55,9 @@ export const cartSlice = createSlice({
 		},
 		toggle: (state) => {
 			state.toggle = !state.toggle;
+		},
+		stopAnimation: (state) => {
+			state.animate = false;
 		}
 	}
 })
