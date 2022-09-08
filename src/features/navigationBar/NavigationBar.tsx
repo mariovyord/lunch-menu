@@ -38,17 +38,16 @@ const NavigationBar = () => {
 	return (
 		<header className='sticky top-0 h-16 bg-lime-700 shadow z-50'>
 			<div className='max-w-7xl m-auto h-full'>
-				<div onClick={() => (cart.toggle === true) && dispatch(cartActions.toggle())}
-					className='flex justify-between min-w-full h-full px-3'>
+				<div className='flex justify-between min-w-full h-full px-3'>
 					<div className='text-white font-bold text-3xl h-full'>
-						<NavLink to='/' className='h-full flex items-center'>TASTY</NavLink>
+						<NavLink onClick={() => (cart.toggle === true) && dispatch(cartActions.toggle())} to='/' className='h-full flex items-center'>TASTY</NavLink>
 					</div>
 					<div className='flex'>
 						<nav className='flex'>
 							<div className='hidden sm:block w-full h-full'>
 								<ul className='flex h-full'>
 									{list.map((item) => {
-										return <li key={item.url}><NavLink to={item.url} className='font-semibold h-full flex items-center px-5 text-white text-lg hover:bg-lime-800'>{item.name}</NavLink></li>
+										return <li key={item.url}><NavLink onClick={() => (cart.toggle === true) && dispatch(cartActions.toggle())} to={item.url} className='font-semibold h-full flex items-center px-5 text-white text-lg hover:bg-lime-800'>{item.name}</NavLink></li>
 									})}
 								</ul>
 							</div>

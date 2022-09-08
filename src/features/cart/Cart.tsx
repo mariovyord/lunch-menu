@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { cartActions, selectCart } from '../../app/slices/cartSlice';
+import { formatDollars } from '../../utils/formatDollars';
 import Row from './row/Row';
 
 const Cart = () => {
@@ -23,21 +24,19 @@ const Cart = () => {
 						<th className='p-1 text-left font-normal text-sm'>Price</th>
 					</tr>
 
-					<Row product={{
-						title: "Kofte",
-						qty: 2,
-						price: 3.50,
-					}} />
-					<Row product={{
-						title: "Musaka",
-						qty: 1,
-						price: 4.50,
-					}} />
+					{cart.items.length === 0
+						? <p className='text-center italic'>No products in cart</p>
+						: cart.items.map(pr => (
+							<Row product={pr} />
+						))
+					}
 
 					<tr className='font-bold'>
 						<td className='p-1'>Total</td>
 						<td className='p-1'></td>
-						<td className='p-1'>$8.50</td>
+						<td className='p-1'>
+							{formatDollars(cart.items.reduce((acc, x) => acc + (x.price * x.qty), 0))}
+						</td>
 					</tr>
 				</table>
 			</div>
