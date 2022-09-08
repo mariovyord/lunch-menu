@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import dayReducer from './slices/daySlice';
+import cartReducer from './slices/cartSlice';
 
 export const store = configureStore({
 	reducer: {
 		day: dayReducer,
+		cart: cartReducer,
 	},
 });
 
