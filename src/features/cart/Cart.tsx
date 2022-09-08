@@ -1,18 +1,17 @@
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { cartActions, selectCart } from '../../app/slices/cartSlice';
+import { useAppSelector } from '../../app/hooks';
+import { selectCart } from '../../app/slices/cartSlice';
 import { formatDollars } from '../../utils/formatDollars';
 import Row from './row/Row';
 
 const Cart = () => {
 	const cart = useAppSelector(selectCart);
-	const dispatch = useAppDispatch();
 
 	return (
 		<div className='bg-white p-5 float-right min-w-[30%] w-full sm:w-fit'>
 			<div className='flex gap-9 border-b-2 '>
 				<h2 className='font-bold text-3xl text-primary pb-2'>Shopping Cart</h2>
 				<div className='flex items-center text-xl'>
-					<p>3 items</p>
+					<p>{cart.items.reduce((acc, x) => acc + x.qty, 0)} items</p>
 				</div>
 			</div>
 
