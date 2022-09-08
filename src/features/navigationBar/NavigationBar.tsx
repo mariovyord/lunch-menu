@@ -30,7 +30,7 @@ const NavigationBar = () => {
 	]
 
 	return (
-		<header className='h-16 bg-lime-700 shadow'>
+		<header className='sticky top-0 h-16 bg-lime-700 shadow'>
 			<div className='max-w-7xl m-auto h-full'>
 				<div className='flex justify-between min-w-full h-full px-3'>
 					<div className='text-white font-bold text-3xl h-full'>
