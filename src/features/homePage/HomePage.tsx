@@ -39,19 +39,19 @@ const HomePage = () => {
 					scrollThrottle={100}
 					offsetBottom={30}
 				>
-					<DayMenuCard reference={refs[0]} dayCode={0} />
 					<DayMenuCard reference={refs[1]} dayCode={1} />
 					<DayMenuCard reference={refs[2]} dayCode={2} />
 					<DayMenuCard reference={refs[3]} dayCode={3} />
 					<DayMenuCard reference={refs[4]} dayCode={4} />
+					<DayMenuCard reference={refs[5]} dayCode={5} />
 
-					<div ref={refs[5]} className='pt-20' id="saturday">
+					<div ref={refs[6]} className='pt-20' id="saturday">
 						<h2 className='font-bold text-3xl text-primary border-b-2 pb-2' ><a href="#saturday">Saturday</a></h2>
 						<div className='uppercase p-4 text-2xl italic flex gap-4'>
 							<p>Rest Day</p>
 						</div>
 					</div>
-					<div ref={refs[6]} className='py-20' id="sunday">
+					<div ref={refs[0]} className='py-20' id="sunday">
 						<h2 className='font-bold text-3xl text-primary border-b-2 pb-2'><a href="#sunday">Sunday</a></h2>
 						<div className='uppercase p-4 text-2xl italic flex gap-4'>
 							<p>Rest Day</p>

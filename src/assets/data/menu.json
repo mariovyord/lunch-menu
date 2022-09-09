@@ -1,4 +1,5 @@
 [
+	[],
 	[
 		{
 			"title": "Tarator",
@@ -258,5 +259,6 @@
 			"description": "Chocolate, milk, eggs - 400 g",
 			"price": 6.50
 		}
-	]
+	],
+	[]
 ]
