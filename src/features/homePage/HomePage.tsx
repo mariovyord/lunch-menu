@@ -28,10 +28,12 @@ const HomePage = () => {
 
 	useEffect(() => {
 		refs[day.code].current?.scrollIntoView();
-	})
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
 	return (
 		<div className='grid grid-cols-6'>
-			<div className='sticky col-span-6 sm:col-span-1 top-16 left-0 sm:h-screen text-2xl bg-slate-200'>
+			<div className='fixed bottom-0 w-full sm:sticky col-span-6 sm:col-span-1 sm:top-16 sm:left-0 sm:h-screen text-2xl bg-slate-200'>
 				<SideMenu />
 			</div>
 			<div className='col-span-6 sm:col-span-5 px-4 sm:px-8 bg-white'>
