@@ -1,8 +1,3 @@
-# Lunch Menu | Restaurant Website
+# SoftUni Practice Server
 
-Template for a small lunch restaurant website.
-
-Training project.
-
-![screenshot 1](screenshot-1.png)
-![screenshot 2](screenshot-2.png)
+GitHub: https://github.com/softuni-practice-server/softuni-practice-server
