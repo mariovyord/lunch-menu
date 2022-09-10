@@ -20,14 +20,20 @@ const ProductCard: React.FC<TProps> = ({ product, active }) => {
     const addProduct = (product: TCartProduct) => {
         if (cart && user) {
             const products = () => {
-                const productsCopy = [...cart.products];
-                const existing = productsCopy.find(x => x.title === product.title);
+                let existing: boolean = false;
+                const productsCopy = cart.products.map(x => {
+                    if (x.title === product.title) {
+                        existing = true;
+                        return { ...x, qty: x.qty + 1 }
+                    } else {
+                        return x;
+                    }
+                })
 
-                if (existing) {
-                    existing.qty++;
-                    return productsCopy;
-                } else {
+                if (existing === false) {
                     return [...productsCopy, product];
+                } else {
+                    return productsCopy;
                 }
             }
 
