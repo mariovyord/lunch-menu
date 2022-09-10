@@ -2,7 +2,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import dayReducer from '../features/homePage/daySlice';
 import cartReducer from '../features/cart/cartSlice';
 import authReducer from '../features/user/userSlice';
-import { authApi } from '../features/api/authApi';
+import { api } from '../features/api/api';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
 export const store = configureStore({
@@ -10,9 +10,9 @@ export const store = configureStore({
         day: dayReducer,
         cart: cartReducer,
         user: authReducer,
-        [authApi.reducerPath]: authApi.reducer,
+        [api.reducerPath]: api.reducer,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authApi.middleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
 });
 
 setupListeners(store.dispatch)

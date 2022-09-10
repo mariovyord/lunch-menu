@@ -1,13 +1,13 @@
 import { useAppSelector } from '../../app/hooks';
 import { formatDollars } from '../../utils/formatDollars';
 import Row from './row/Row';
-import { useGetCartQuery, useUpdateCartMutation } from '../api/dataApi';
+import { useGetCartQuery, useUpdateCartMutation } from '../api/api';
 import { selectUser } from '../user/userSlice';
 import { TCartProduct } from '../../types/types';
 
 const Cart = () => {
     const user = useAppSelector(selectUser).user!;
-    const { data: cart, error, isLoading, isUninitialized } = useGetCartQuery(user._id);
+    const { data: cart } = useGetCartQuery(user._id);
     const [updateCart] = useUpdateCartMutation();
 
     const updateProduct = (product: TCartProduct) => {

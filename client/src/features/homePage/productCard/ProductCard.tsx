@@ -3,7 +3,7 @@ import React from 'react';
 import { useAppSelector } from '../../../app/hooks';
 import { TCartProduct } from '../../../types/types';
 import { formatDollars } from '../../../utils/formatDollars';
-import { useGetCartQuery, useUpdateCartMutation } from '../../api/dataApi';
+import { useCreateCartMutation, useGetCartQuery, useUpdateCartMutation } from '../../api/api';
 import { selectUser } from '../../user/userSlice';
 
 type TProps = {
@@ -14,21 +14,22 @@ type TProps = {
 
 const ProductCard: React.FC<TProps> = ({ product, active }) => {
     const user = useAppSelector(selectUser).user;
-    const { data: cart, error, isLoading, isUninitialized } = useGetCartQuery(user?._id ?? skipToken);
+    const { data: cart, isError, isLoading } = useGetCartQuery(user?._id ?? skipToken);
     const [updateCart] = useUpdateCartMutation();
+    const [createCart] = useCreateCartMutation();
 
     const addProduct = (product: TCartProduct) => {
-        if (cart && user) {
+        if (user) {
             const products = () => {
                 let existing: boolean = false;
-                const productsCopy = cart.products.map(x => {
+                const productsCopy = cart?.products.map(x => {
                     if (x.title === product.title) {
                         existing = true;
                         return { ...x, qty: x.qty + 1 }
                     } else {
                         return x;
                     }
-                })
+                }) || [];
 
                 if (existing === false) {
                     return [...productsCopy, product];
@@ -37,16 +38,24 @@ const ProductCard: React.FC<TProps> = ({ product, active }) => {
                 }
             }
 
-            // TODO add optimistic updates
-            updateCart({
-                accessToken: user.accessToken,
-                cart: {
-                    ...cart,
+            // ...refactor pls
+            if (cart && isError === false) {
+                updateCart({
+                    accessToken: user.accessToken,
+                    cart: {
+                        ...cart,
+                        products: products(),
+                    }
+                })
+            } else if (isError === true) {
+                createCart({
+                    accessToken: user.accessToken,
                     products: products(),
-                }
-            });
+                })
+            }
         }
     }
+
 
     return (
         <div className='border-2 rounded-lg p-3 flex justify-between gap-6'>

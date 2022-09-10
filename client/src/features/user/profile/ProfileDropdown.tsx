@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { useSignOutMutation } from "../../api/authApi";
+import { useSignOutMutation } from "../../api/api";
 import { selectUser, userActions } from "../userSlice";
 
 const ProfileDropdown = () => {

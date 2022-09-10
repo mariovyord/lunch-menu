@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useAppDispatch } from '../../../app/hooks';
-import { useSignInMutation } from '../../api/authApi'
+import { useSignInMutation } from '../../api/api'
 import { userActions } from '../userSlice';
 
 const SignInForm = () => {

@@ -1,7 +1,7 @@
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 import { Route, Routes } from "react-router-dom";
 import { useAppSelector } from "./app/hooks";
-import { useGetCartQuery } from "./features/api/dataApi";
+import { useGetCartQuery } from "./features/api/api";
 import ContactsPage from "./features/contactsPage/ContactsPage";
 import Footer from "./features/footer/Footer";
 import HomePage from "./features/homePage/HomePage";
