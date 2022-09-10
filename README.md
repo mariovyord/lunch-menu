@@ -2,7 +2,7 @@
 
 Template for a small lunch restaurant website.
 
-##**TechStack**
+## **TechStack**
 - TypeScript
 - React
 - Redux Toolkit /w RTK Query
