@@ -16,9 +16,19 @@ export const authApi = createApi({
                 },
             }),
         }),
+        signOut: builder.mutation<any, { accessToken: string }>({
+            query: ({ accessToken }) => ({
+                url: '/users/logout',
+                method: 'GET',
+                headers: {
+                    'X-Authorization': accessToken,
+                }
+            })
+        })
     })
 })
 
 export const {
     useSignInMutation,
+    useSignOutMutation,
 } = authApi;

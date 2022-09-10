@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { authActions, selectAuth } from '../../app/slices/authSlice';
-import { cartActions, selectCart } from '../../app/slices/cartSlice';
-import SignInForm from '../auth/signin/SignInForm';
+import { selectUser, userActions } from '../user/userSlice';
+import { cartActions, selectCart } from '../cart/cartSlice';
+import SignInForm from '../user/signin/SignInForm';
 import Cart from '../cart/Cart';
+import ProfileDropdown from '../user/profile/ProfileDropdown';
 
 type listItemArray = {
     name: string,
@@ -17,7 +18,9 @@ const NavigationBar = () => {
     })
 
     const cart = useAppSelector(selectCart);
-    const auth = useAppSelector(selectAuth);
+    const user = useAppSelector(selectUser).user;
+    const showSignInForm = useAppSelector(selectUser).showSignInForm;
+    const showProfileDropdown = useAppSelector(selectUser).showProfileDropdown;
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -78,13 +81,23 @@ const NavigationBar = () => {
                                 </ul>
                             </div>
 
-                            {/* Toggle sign in button */}
-                            <button
-                                onClick={() => dispatch(authActions.toggleSignIn())}
-                                className={`font-semibold h-full flex items-center px-5 text-white text-lg hover:bg-lime-800`}
-                            >
-                                Sign&nbsp;in
-                            </button>
+                            {/* Toggle login or profile dropdown */}
+                            {user === null
+                                ? <button
+                                    onClick={() => dispatch(userActions.toggleLoginForm())}
+                                    className={`font-semibold h-full flex items-center px-5 text-white text-lg hover:bg-lime-800`}
+                                >
+                                    Sign&nbsp;in
+                                </button>
+                                : < button
+                                    onClick={() => dispatch(userActions.toggleProfile())}
+                                    className={`font-semibold h-full flex items-center text-white px-5 text-lg hover:bg-lime-800`}
+                                >
+                                    <div className='rounded-full overflow-clip border-2 w-10'>
+                                        <img src="https://i.imgur.com/IbZO2r1.png" alt="avatar" />
+                                    </div>
+                                </button>
+                            }
 
                             {/* Toggle cart button */}
                             <div>
@@ -98,6 +111,7 @@ const NavigationBar = () => {
                                     }
                                 </button>
                             </div>
+
                             {/* Mobile menu */}
                             <div className='sm:hidden h-full'>
                                 <div onClick={() => toggleHamburger()} className='h-full flex items-center cursor-pointer w-8'>
@@ -116,11 +130,16 @@ const NavigationBar = () => {
                         </nav>
                     </div>
                 </div>
-                {/* TODO Refactor */}
+
+                {/* TODO Refactor - merge dropdowns into one */}
                 {cart.toggle && <Cart />}
-                {auth.toggleSignIn && <SignInForm />}
-                {auth.toggleSignIn && <div onClick={() => dispatch(authActions.toggleSignIn())} className='absolute bg-slate-600 opacity-50 h-[calc(100vh_-_64px)] w-full top-16 left-0 -z-50'></div>}
                 {cart.toggle && <div onClick={() => dispatch(cartActions.toggle())} className='absolute bg-slate-600 opacity-50 h-[calc(100vh_-_64px)] w-full top-16 left-0 -z-50'></div>}
+
+                {showProfileDropdown && <ProfileDropdown />}
+                {showProfileDropdown && <div onClick={() => dispatch(userActions.toggleProfile())} className='absolute bg-slate-600 opacity-50 h-[calc(100vh_-_64px)] w-full top-16 left-0 -z-50'></div>}
+
+                {showSignInForm && <SignInForm />}
+                {showSignInForm && <div onClick={() => dispatch(userActions.toggleLoginForm())} className='absolute bg-slate-600 opacity-50 h-[calc(100vh_-_64px)] w-full top-16 left-0 -z-50'></div>}
             </div>
         </header >
     )
