@@ -3,18 +3,39 @@ import { formatDollars } from '../../utils/formatDollars';
 import Row from './row/Row';
 import { useGetCartQuery, useUpdateCartMutation } from '../api/dataApi';
 import { selectUser } from '../user/userSlice';
+import { TCartProduct } from '../../types/types';
 
 const Cart = () => {
     const user = useAppSelector(selectUser).user!;
-    const { data, error, isLoading, isUninitialized } = useGetCartQuery(user._id);
+    const { data: cart, error, isLoading, isUninitialized } = useGetCartQuery(user._id);
     const [updateCart] = useUpdateCartMutation();
+
+    const updateProduct = (product: TCartProduct) => {
+        if (cart) {
+            const products = cart.products.map(x => {
+                if (x.title === product.title) {
+                    return product;
+                }
+                return x;
+            }).filter(x => x.qty > 0);
+
+            // TODO add optimistic updates
+            updateCart({
+                accessToken: user.accessToken,
+                cart: {
+                    ...cart,
+                    products: products,
+                }
+            })
+        }
+    }
 
     return (
         <div className='bg-white p-5 float-right min-w-[30%] w-full sm:w-fit'>
             <div className='flex gap-9 border-b-2 '>
                 <h2 className='font-bold text-3xl text-primary pb-2'>Shopping Cart</h2>
                 <div className='flex items-center text-xl'>
-                    <p>{data?.products.reduce((acc, x) => acc + x.qty, 0) || 0} items</p>
+                    <p>{cart?.products.reduce((acc, x) => acc + x.qty, 0) || 0} items</p>
                 </div>
             </div>
 
@@ -26,10 +47,10 @@ const Cart = () => {
                         <th className='p-1 text-left font-normal text-sm'>Price</th>
                     </tr>
 
-                    {data?.products.length === 0
+                    {cart?.products.length === 0
                         ? <p className='text-center italic'>No products in cart</p>
-                        : data?.products.map(pr => (
-                            <Row updateCart={updateCart} product={pr} />
+                        : cart?.products.map(pr => (
+                            <Row updateProduct={updateProduct} product={pr} />
                         ))
                     }
 
@@ -37,7 +58,7 @@ const Cart = () => {
                         <td className='p-1'>Total</td>
                         <td className='p-1'></td>
                         <td className='p-1'>
-                            {formatDollars(data?.products.reduce((acc, x) => acc + (x.price * x.qty), 0) || 0)}
+                            {formatDollars(cart?.products.reduce((acc, x) => acc + (x.price * x.qty), 0) || 0)}
                         </td>
                     </tr>
                 </table>

@@ -36,14 +36,14 @@ export const dataApi = apiWithTag.injectEndpoints({
             },
             invalidatesTags: ['CART'],
         }),
-        updateCart: builder.mutation<TCart, { accessToken: string, body: TCartProduct[], cartId: string, }>({
-            query: ({ accessToken, body, cartId }) => ({
-                url: `/data/cart/${cartId}`,
-                method: 'PATCH',
+        updateCart: builder.mutation<TCart, { accessToken: string, cart: TCart }>({
+            query: ({ accessToken, cart }) => ({
+                url: `/data/cart/${cart._id}`,
+                method: 'PUT',
                 headers: {
                     'X-Authorization': accessToken,
                 },
-                body
+                body: cart,
             }),
             transformResponse: (response: any): TCart => {
                 return {
