@@ -1,4 +1,4 @@
-import { TCart, TCartProduct } from '../../types/types';
+import { TCart } from '../../types/types';
 import { api } from './api';
 
 const apiWithTag = api.enhanceEndpoints({ addTagTypes: ['CART'] })

@@ -6,6 +6,7 @@ export type TCartProduct = {
     title: string,
     qty: number,
     price: number,
+    description: string,
 }
 
 export type TUser = {

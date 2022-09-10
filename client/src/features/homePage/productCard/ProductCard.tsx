@@ -1,19 +1,46 @@
-import React from 'react'
-import { useAppDispatch } from '../../../app/hooks'
-import { cartActions } from '../../cart/cartSlice'
-import { formatDollars } from '../../../utils/formatDollars'
+import { skipToken } from '@reduxjs/toolkit/dist/query';
+import React from 'react';
+import { useAppSelector } from '../../../app/hooks';
+import { TCartProduct } from '../../../types/types';
+import { formatDollars } from '../../../utils/formatDollars';
+import { useGetCartQuery, useUpdateCartMutation } from '../../api/dataApi';
+import { selectUser } from '../../user/userSlice';
 
 type TProps = {
-    product: {
-        title: string,
-        description: string,
-        price: number,
-    },
+    product: TCartProduct,
     active: boolean,
 }
 
+
 const ProductCard: React.FC<TProps> = ({ product, active }) => {
-    const dispatch = useAppDispatch();
+    const user = useAppSelector(selectUser).user;
+    const { data: cart, error, isLoading, isUninitialized } = useGetCartQuery(user?._id ?? skipToken);
+    const [updateCart] = useUpdateCartMutation();
+
+    const addProduct = (product: TCartProduct) => {
+        if (cart && user) {
+            const products = () => {
+                const productsCopy = [...cart.products];
+                const existing = productsCopy.find(x => x.title === product.title);
+
+                if (existing) {
+                    existing.qty++;
+                    return productsCopy;
+                } else {
+                    return [...productsCopy, product];
+                }
+            }
+
+            // TODO add optimistic updates
+            updateCart({
+                accessToken: user.accessToken,
+                cart: {
+                    ...cart,
+                    products: products(),
+                }
+            });
+        }
+    }
 
     return (
         <div className='border-2 rounded-lg p-3 flex justify-between gap-6'>
@@ -25,10 +52,15 @@ const ProductCard: React.FC<TProps> = ({ product, active }) => {
                 <p>{product.description}</p>
             </div>
             <div>
-                <button onClick={() => dispatch(cartActions.addItem(product))} disabled={false} type='button' className='disabled:bg-slate-600 hover:bg-lime-800 hover:shadow active:scale-95 flex h-12 w-12 justify-center rounded-full bg-lime-700 text-4xl text-white shadow'>+</button>
+                <button
+                    onClick={() => addProduct(product)}
+                    disabled={false} // fix it at the end to use !active
+                    type='button'
+                    className='disabled:bg-slate-600 hover:bg-lime-800 hover:shadow active:scale-95 flex h-12 w-12 justify-center rounded-full bg-lime-700 text-4xl text-white shadow'
+                >+</button>
             </div>
         </div>
     )
 }
 
-export default ProductCard
+export default ProductCard;
