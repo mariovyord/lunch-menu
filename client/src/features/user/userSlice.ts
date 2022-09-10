@@ -1,24 +1,30 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
+import { TUser } from '../../types/types';
 
 type TAuthState = {
-    user: null | string,
-    toggleSignIn: boolean,
+    user: null | TUser,
+    showSignInForm: boolean,
+    showProfileDropdown: boolean
 }
 
 const initialState: TAuthState = {
     user: null,
-    toggleSignIn: false,
+    showSignInForm: false,
+    showProfileDropdown: false,
 }
 
 export const userSlice = createSlice({
     name: 'user',
     initialState: initialState,
     reducers: {
-        toggleDropdown: (state) => {
-            state.toggleSignIn = !state.toggleSignIn;
+        toggleLoginForm: (state) => {
+            state.showSignInForm = !state.showSignInForm;
         },
-        setUser: (state, action: PayloadAction<any>) => {
+        toggleProfile: (state) => {
+            state.showProfileDropdown = !state.showProfileDropdown;
+        },
+        setUser: (state, action: PayloadAction<TUser>) => {
             state.user = action.payload;
         },
         removeUser: (state) => {

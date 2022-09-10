@@ -21,8 +21,11 @@ const SignInForm = () => {
             password: formData.password,
         }).unwrap()
             .then(x => {
-                dispatch(userActions.setUser(x.email));
-                dispatch(userActions.toggleDropdown());
+                dispatch(userActions.setUser(x));
+                dispatch(userActions.toggleLoginForm());
+            })
+            .catch(err => {
+                console.log(err);
             })
     }
 

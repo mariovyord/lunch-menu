@@ -1,7 +1,7 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import dayReducer from '../features/homePage/daySlice';
 import cartReducer from '../features/cart/cartSlice';
-import authReducer from '../features/auth/userSlice';
+import authReducer from '../features/user/userSlice';
 import { authApi } from '../features/api/authApi';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
