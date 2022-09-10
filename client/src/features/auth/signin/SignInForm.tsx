@@ -1,9 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useAppDispatch } from '../../../app/hooks';
+import { useSignInMutation } from '../../api/authApi'
+import { userActions } from '../userSlice';
 
 const SignInForm = () => {
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    })
+    const [signIn, { isLoading }] = useSignInMutation();
+    const dispatch = useAppDispatch();
+
     const handleSubmit: React.FormEventHandler = (e) => {
         e.preventDefault();
-        console.log(`Submited`);
+
+        if (formData.email === '' || formData.password === '') return;
+
+        signIn({
+            email: formData.email,
+            password: formData.password,
+        }).unwrap()
+            .then(x => {
+                dispatch(userActions.setUser(x.email));
+                dispatch(userActions.toggleDropdown());
+            })
     }
 
     return (
@@ -14,11 +34,27 @@ const SignInForm = () => {
             <form className='text-base flex flex-col gap-3' onSubmit={handleSubmit}>
                 <div className='w-full'>
                     <label htmlFor="email">Email</label>
-                    <input className='border-2 w-full mt-2 p-2 text-black' type="email" id="email" name="email" placeholder='ex.: peter@abv.bg' />
+                    <input
+                        value={formData.email}
+                        onChange={(e) => setFormData(s => ({ ...s, email: e.target.value }))}
+                        className='border-2 w-full mt-2 p-2 text-black'
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder='ex.: peter@abv.bg'
+                    />
                 </div>
                 <div className='w-full'>
                     <label htmlFor="password">Password</label>
-                    <input className='border-2 w-full mt-2 p-2 text-black' type="password" id="password" name="password" placeholder='ex.: 123456' />
+                    <input
+                        value={formData.password}
+                        onChange={(e) => setFormData(s => ({ ...s, password: e.target.value }))}
+                        className='border-2 w-full mt-2 p-2 text-black'
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder='ex.: 123456'
+                    />
                 </div>
                 <div className='flex justify-end mt-2'>
                     <button
