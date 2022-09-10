@@ -1,16 +1,24 @@
+import { TCart, TCartProduct } from '../../types/types';
 import { api } from './api';
 
 const apiWithTag = api.enhanceEndpoints({ addTagTypes: ['CART'] })
 
 export const dataApi = apiWithTag.injectEndpoints({
     endpoints: (builder) => ({
-        getCart: builder.query<any, { userId: string }>({
-            query: ({ userId }) => ({
-                url: `/data/cart?where=owner=${userId}`
+        getCart: builder.query<TCart, string>({
+            query: (userId) => ({
+                url: `/data/cart?where=_ownerId` + encodeURIComponent(`="${userId}"`),
             }),
+            transformResponse: (response: any): TCart => {
+                return {
+                    _id: response[0]._id,
+                    _ownerId: response[0]._ownerId,
+                    products: response[0].products
+                }
+            },
             providesTags: ['CART'],
         }),
-        createCart: builder.mutation<any, { accessToken: string, body: any }>({
+        createCart: builder.mutation<TCart, { accessToken: string, body: any }>({
             query: ({ accessToken, body }) => ({
                 url: `/data/cart`,
                 method: 'POST',
@@ -19,20 +27,34 @@ export const dataApi = apiWithTag.injectEndpoints({
                 },
                 body,
             }),
+            transformResponse: (response: any): TCart => {
+                return {
+                    _id: response._id,
+                    _ownerId: response._ownerId,
+                    products: response.products
+                }
+            },
             invalidatesTags: ['CART'],
         }),
-        updateCart: builder.mutation<any, { accessToken: string, body: any, cartId: string, }>({
+        updateCart: builder.mutation<TCart, { accessToken: string, body: TCartProduct[], cartId: string, }>({
             query: ({ accessToken, body, cartId }) => ({
                 url: `/data/cart/${cartId}`,
-                method: 'POST',
+                method: 'PATCH',
                 headers: {
                     'X-Authorization': accessToken,
                 },
                 body
             }),
+            transformResponse: (response: any): TCart => {
+                return {
+                    _id: response._id,
+                    _ownerId: response._ownerId,
+                    products: response.products
+                }
+            },
             invalidatesTags: ['CART'],
         }),
-        deleteCart: builder.mutation<any, { accessToken: string, cartId: string }>({
+        deleteCart: builder.mutation<unknown, { accessToken: string, cartId: string }>({
             query: ({ accessToken, cartId }) => ({
                 url: `/data/cart/${cartId}`,
                 method: 'DELETE',

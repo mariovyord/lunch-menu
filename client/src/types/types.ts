@@ -14,3 +14,9 @@ export type TUser = {
     email: string,
     username: string,
 }
+
+export type TCart = {
+    _id: string,
+    _ownerId: string,
+    products: TCartProduct[]
+}
