@@ -3,7 +3,7 @@ import React from 'react';
 import { useAppSelector } from '../../../app/hooks';
 import { TCartProduct } from '../../../types/types';
 import { formatDollars } from '../../../utils/formatDollars';
-import { useCreateCartMutation, useGetCartQuery, useUpdateCartMutation } from '../../api/api';
+import { useGetCartQuery, useUpdateCartMutation } from '../../api/api';
 import { selectUser } from '../../user/userSlice';
 
 type TProps = {
@@ -14,7 +14,7 @@ type TProps = {
 
 const ProductCard: React.FC<TProps> = ({ product, active }) => {
     const user = useAppSelector(selectUser).user;
-    const { data: cart, isError, isLoading } = useGetCartQuery(user ?? skipToken);
+    const { data: cart, isError } = useGetCartQuery(user ?? skipToken);
     const [updateCart] = useUpdateCartMutation();
 
     const addProduct = (product: TCartProduct) => {
