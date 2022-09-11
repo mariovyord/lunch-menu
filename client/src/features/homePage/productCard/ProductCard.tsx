@@ -63,7 +63,7 @@ const ProductCard: React.FC<TProps> = ({ product, active }) => {
             <div>
                 <button
                     onClick={() => addProduct(product)}
-                    disabled={false} // fix it at the end to use !active
+                    disabled={!active} // fix it at the end to use !active
                     type='button'
                     className='disabled:bg-slate-600 hover:bg-lime-800 hover:shadow active:scale-95 flex h-12 w-12 justify-center rounded-full bg-lime-700 text-4xl text-white shadow'
                 >+</button>
