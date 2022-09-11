@@ -14,9 +14,8 @@ type TProps = {
 
 const ProductCard: React.FC<TProps> = ({ product, active }) => {
     const user = useAppSelector(selectUser).user;
-    const { data: cart, isError, isLoading } = useGetCartQuery(user?._id ?? skipToken);
+    const { data: cart, isError, isLoading } = useGetCartQuery(user ?? skipToken);
     const [updateCart] = useUpdateCartMutation();
-    const [createCart] = useCreateCartMutation();
 
     const addProduct = (product: TCartProduct) => {
         if (user) {
@@ -46,11 +45,6 @@ const ProductCard: React.FC<TProps> = ({ product, active }) => {
                         ...cart,
                         products: products(),
                     }
-                })
-            } else if (isError === true) {
-                createCart({
-                    accessToken: user.accessToken,
-                    products: products(),
                 })
             }
         }

@@ -7,7 +7,7 @@ import { TCartProduct } from '../../types/types';
 
 const Cart = () => {
     const user = useAppSelector(selectUser).user!;
-    const { data: cart } = useGetCartQuery(user._id);
+    const { data: cart } = useGetCartQuery(user);
     const [updateCart] = useUpdateCartMutation();
 
     const updateProduct = (product: TCartProduct) => {
@@ -19,7 +19,6 @@ const Cart = () => {
                 return x;
             }).filter(x => x.qty > 0);
 
-            // TODO add optimistic updates
             updateCart({
                 accessToken: user.accessToken,
                 cart: {

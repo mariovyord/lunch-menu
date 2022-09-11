@@ -10,7 +10,7 @@ import { selectUser } from "./features/user/userSlice";
 
 function App() {
     const user = useAppSelector(selectUser).user;
-    useGetCartQuery(user?._id ?? skipToken);
+    useGetCartQuery(user ?? skipToken);
 
     return (
         <div className="min-h-screen flex flex-col bg-slate-200">

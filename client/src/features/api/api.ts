@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery, } from '@reduxjs/toolkit/query/react';
-import { TCart, TCartProduct } from '../../types/types';
+import { TCart, TCartProduct, TUser } from '../../types/types';
 
 export const api = createApi({
     reducerPath: 'api',
@@ -8,9 +8,9 @@ export const api = createApi({
     }),
     tagTypes: ['CART'],
     endpoints: (builder) => ({
-        getCart: builder.query<TCart, string>({
-            query: (userId) => ({
-                url: `/data/cart?where=_ownerId` + encodeURIComponent(`="${userId}"`),
+        getCart: builder.query<TCart, TUser>({
+            query: (user) => ({
+                url: `/data/cart?where=_ownerId` + encodeURIComponent(`="${user._id}"`),
             }),
             transformResponse: (response: any): TCart => {
                 return {
@@ -20,6 +20,19 @@ export const api = createApi({
                 }
             },
             providesTags: ['CART'],
+            async onQueryStarted(body, { dispatch, queryFulfilled }) {
+                queryFulfilled.then(res => {
+                    return res;
+                }).catch(err => {
+                    if (err.error.status === 404) {
+                        console.log('heeeere')
+                        dispatch(api.endpoints.createCart.initiate({
+                            accessToken: body.accessToken,
+                            products: [],
+                        }))
+                    }
+                })
+            }
         }),
         createCart: builder.mutation<TCart, { accessToken: string, products: TCartProduct[] }>({
             query: ({ accessToken, products }) => ({
