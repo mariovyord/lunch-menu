@@ -1,15 +1,15 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import dayReducer from '../features/homePage/daySlice';
-import cartReducer from '../features/cart/cartSlice';
 import authReducer from '../features/user/userSlice';
 import { api } from '../features/api/api';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
+import metaReducer from './metaSlice';
 
 export const store = configureStore({
     reducer: {
         day: dayReducer,
-        cart: cartReducer,
         user: authReducer,
+        meta: metaReducer,
         [api.reducerPath]: api.reducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),

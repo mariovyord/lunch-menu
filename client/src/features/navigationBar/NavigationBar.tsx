@@ -1,35 +1,31 @@
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectUser, userActions } from '../user/userSlice';
-import { cartActions, selectCart } from '../cart/cartSlice';
+import { selectUser } from '../user/userSlice';
 import SignInForm from '../user/signin/SignInForm';
 import Cart from '../cart/Cart';
 import ProfileDropdown from '../user/profile/ProfileDropdown';
+import { useGetCartQuery } from '../api/api';
+import { skipToken } from '@reduxjs/toolkit/dist/query';
+import { metaActions, selectMeta } from '../../app/metaSlice';
 
 type listItemArray = {
     name: string,
     url: string,
 }[];
 
+// TODO refactor all toggles
 const NavigationBar = () => {
     const [state, setState] = useState({
         toggle: false,
     })
 
-    const cart = useAppSelector(selectCart);
     const user = useAppSelector(selectUser).user;
-    const showSignInForm = useAppSelector(selectUser).showSignInForm;
-    const showProfileDropdown = useAppSelector(selectUser).showProfileDropdown;
+    const meta = useAppSelector(selectMeta);
+
+    const { data: cart } = useGetCartQuery(user ?? skipToken);
+
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        let clearAnimationTimer = setTimeout(() => dispatch(cartActions.stopAnimation()), 520);
-
-        return () => {
-            clearTimeout(clearAnimationTimer);
-        };
-    }, [cart.animate, dispatch])
 
     const toggleHamburger = () => {
         setState((prevState) => ({
@@ -56,10 +52,7 @@ const NavigationBar = () => {
                     <div className='text-white font-bold text-3xl h-full'>
                         <NavLink onClick={() => {
                             window.scrollTo(0, 0)
-
-                            if (cart.toggle === true) {
-                                dispatch(cartActions.toggle())
-                            }
+                            dispatch(metaActions.closeAll());
                         }
                         } to='/' className='h-full flex items-center'>TASTY</NavLink>
                     </div>
@@ -71,7 +64,7 @@ const NavigationBar = () => {
                                     {list.map((item) => {
                                         return <li key={item.url}>
                                             <NavLink
-                                                onClick={() => (cart.toggle === true) && dispatch(cartActions.toggle())}
+                                                onClick={() => dispatch(metaActions.closeAll())}
                                                 to={item.url}
                                                 className='font-semibold h-full flex items-center px-5 text-white text-lg hover:bg-lime-800'
                                             >{item.name}
@@ -84,13 +77,13 @@ const NavigationBar = () => {
                             {/* Toggle login or profile dropdown */}
                             {user === null
                                 ? <button
-                                    onClick={() => dispatch(userActions.toggleLoginForm())}
+                                    onClick={() => dispatch(metaActions.toggleSignInDropdown())}
                                     className={`font-semibold h-full flex items-center px-5 text-white text-lg hover:bg-lime-800`}
                                 >
                                     Sign&nbsp;in
                                 </button>
                                 : < button
-                                    onClick={() => dispatch(userActions.toggleProfile())}
+                                    onClick={() => dispatch(metaActions.toggleProfileDropdown())}
                                     className={`font-semibold h-full flex items-center text-white px-5 text-lg hover:bg-lime-800`}
                                 >
                                     <div className='rounded-full overflow-clip border-2 w-10'>
@@ -100,17 +93,17 @@ const NavigationBar = () => {
                             }
 
                             {/* Toggle cart button */}
-                            <div>
+                            {user && <div>
                                 <button
-                                    onClick={() => dispatch(cartActions.toggle())}
-                                    className={`${cart.animate && 'animate-bounce'} h-full w-full flex items-center px-6 text-white text-lg hover:bg-lime-800 fill-white`}
+                                    onClick={() => dispatch(metaActions.toggleCartDropdown())}
+                                    className={`h-full w-full flex items-center px-6 text-white text-lg hover:bg-lime-800 fill-white`}
                                 >
-                                    {cart.items.length === 0
+                                    {cart?.products.length === 0
                                         ? <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path d="M19.029 13h2.971l-.266 1h-2.992l.287-1zm.863-3h2.812l.296-1h-2.821l-.287 1zm-.576 2h4.387l.297-1h-4.396l-.288 1zm2.684-9l-.743 2h-1.929l-3.474 12h-11.239l-4.615-11h14.812l-.564 2h-11.24l2.938 7h8.428l3.432-12h4.194zm-14.5 15c-.828 0-1.5.672-1.5 1.5 0 .829.672 1.5 1.5 1.5s1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm5.9-7-.9 7c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5z" /></svg>
                                         : <svg width="30" height="30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd"><path d="M13.5 18c-.828 0-1.5.672-1.5 1.5 0 .829.672 1.5 1.5 1.5s1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm-3.5 1.5c0 .829-.672 1.5-1.5 1.5s-1.5-.671-1.5-1.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5zm13.257-14.5h-1.929l-3.473 12h-13.239l-4.616-11h2.169l3.776 9h10.428l3.432-12h4.195l-.743 2zm-13.537 4.183l-2.325-2.183-1.395 1.435 3.746 3.565 6.559-6.592-1.422-1.408-5.163 5.183z" /></svg>
                                     }
                                 </button>
-                            </div>
+                            </div>}
 
                             {/* Mobile menu */}
                             <div className='sm:hidden h-full'>
@@ -131,15 +124,19 @@ const NavigationBar = () => {
                     </div>
                 </div>
 
-                {/* TODO Refactor - merge dropdowns into one */}
-                {cart.toggle && <Cart />}
-                {cart.toggle && <div onClick={() => dispatch(cartActions.toggle())} className='absolute bg-slate-600 opacity-50 h-[calc(100vh_-_64px)] w-full top-16 left-0 -z-50'></div>}
-
-                {showProfileDropdown && <ProfileDropdown />}
-                {showProfileDropdown && <div onClick={() => dispatch(userActions.toggleProfile())} className='absolute bg-slate-600 opacity-50 h-[calc(100vh_-_64px)] w-full top-16 left-0 -z-50'></div>}
-
-                {showSignInForm && <SignInForm />}
-                {showSignInForm && <div onClick={() => dispatch(userActions.toggleLoginForm())} className='absolute bg-slate-600 opacity-50 h-[calc(100vh_-_64px)] w-full top-16 left-0 -z-50'></div>}
+                {user && meta.cartDropdown && <Cart />}
+                {user && meta.profileDropdown && <ProfileDropdown />}
+                {!user && meta.signInDropdown && <SignInForm />}
+                {/* Overlay - maybe refactor ;( */}
+                {((user && (
+                    meta.cartDropdown
+                    || meta.profileDropdown))
+                    || (!user
+                        && meta.signInDropdown))
+                    && <div
+                        onClick={() => dispatch(metaActions.toggleCartDropdown())}
+                        className='absolute bg-slate-600 opacity-50 h-[calc(100vh_-_64px)] w-full top-16 left-0 -z-50'
+                    ></div>}
             </div>
         </header >
     )
