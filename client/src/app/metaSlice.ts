@@ -5,12 +5,14 @@ type TMetaState = {
     signInDropdown: boolean,
     cartDropdown: boolean,
     profileDropdown: boolean,
+    mobileMenu: boolean,
 }
 
 const initialState: TMetaState = {
     signInDropdown: false,
     cartDropdown: false,
     profileDropdown: false,
+    mobileMenu: false,
 }
 
 export const metaSlice = createSlice({
@@ -19,26 +21,26 @@ export const metaSlice = createSlice({
     reducers: {
         toggleSignInDropdown: (state) => {
             return {
-                ...state,
+                ...initialState,
                 signInDropdown: !state.signInDropdown,
-                cartDropdown: false,
-                profileDropdown: false,
             }
         },
         toggleCartDropdown: (state) => {
             return {
-                ...state,
-                signInDropdown: false,
+                ...initialState,
                 cartDropdown: !state.cartDropdown,
-                profileDropdown: false,
             }
         },
         toggleProfileDropdown: (state) => {
             return {
-                ...state,
-                signInDropdown: false,
-                cartDropdown: false,
+                ...initialState,
                 profileDropdown: !state.profileDropdown,
+            }
+        },
+        toggleMobileMenu: (state) => {
+            return {
+                ...initialState,
+                mobileMenu: !state.mobileMenu,
             }
         },
         closeAll: () => {

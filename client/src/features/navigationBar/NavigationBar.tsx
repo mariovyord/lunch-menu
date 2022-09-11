@@ -16,10 +16,6 @@ type listItemArray = {
 
 // TODO refactor all toggles
 const NavigationBar = () => {
-    const [state, setState] = useState({
-        toggle: false,
-    })
-
     const user = useAppSelector(selectUser).user;
     const meta = useAppSelector(selectMeta);
 
@@ -28,10 +24,7 @@ const NavigationBar = () => {
     const dispatch = useAppDispatch();
 
     const toggleHamburger = () => {
-        setState((prevState) => ({
-            ...prevState,
-            toggle: !prevState.toggle,
-        }))
+        dispatch(metaActions.toggleMobileMenu());
     }
 
     const list: listItemArray = [
@@ -108,13 +101,13 @@ const NavigationBar = () => {
                             {/* Mobile menu */}
                             <div className='sm:hidden h-full'>
                                 <div onClick={() => toggleHamburger()} className='h-full flex items-center cursor-pointer w-8'>
-                                    <div className={`${state.toggle ? 'flex' : 'flex flex-col'} gap-1`}>
-                                        <div className={`${state.toggle && 'rotate-45 absolute right-3'} w-8 h-1 bg-white transition-all`}></div>
-                                        <div className={`${state.toggle ? '' : 'w-8 h-1'} bg-white transition-all `}></div>
-                                        <div className={`${state.toggle && '-rotate-45 absolute right-3'} w-8 h-1 bg-white transition-all `}></div>
+                                    <div className={`${meta.mobileMenu ? 'flex' : 'flex flex-col'} gap-1`}>
+                                        <div className={`${meta.mobileMenu && 'rotate-45 absolute right-3'} w-8 h-1 bg-white transition-all`}></div>
+                                        <div className={`${meta.mobileMenu ? '' : 'w-8 h-1'} bg-white transition-all `}></div>
+                                        <div className={`${meta.mobileMenu && '-rotate-45 absolute right-3'} w-8 h-1 bg-white transition-all `}></div>
                                     </div>
                                 </div>
-                                {state.toggle && <ul className={`absolute w-screen p-5 bg-lime-700 text-white text-2xl text-center  top-14 left-0 z-50`}>
+                                {meta.mobileMenu && <ul className={`absolute w-screen p-5 bg-lime-700 text-white text-2xl text-center  top-14 left-0 z-50`}>
                                     {list.map((item) => {
                                         return <li key={item.url} className='p-4'><NavLink to={item.url} onClick={() => toggleHamburger()}>{item.name}</NavLink></li>
                                     })}
