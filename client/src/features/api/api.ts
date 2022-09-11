@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery, } from '@reduxjs/toolkit/query/react';
 import { TCart, TCartProduct, TUser } from '../../types/types';
-
+// TODO see this for auth state
+// TODO https://github.com/reduxjs/redux-toolkit/issues/1509#issuecomment-919255436
 export const api = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
@@ -25,7 +26,6 @@ export const api = createApi({
                     return res;
                 }).catch(err => {
                     if (err.error.status === 404) {
-                        console.log('heeeere')
                         dispatch(api.endpoints.createCart.initiate({
                             accessToken: body.accessToken,
                             products: [],
