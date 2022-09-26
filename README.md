@@ -2,6 +2,8 @@
 
 Template for a small lunch restaurant website.
 
+For educational purposes only.
+
 ## **Tech Stack**
 - TypeScript
 - React
